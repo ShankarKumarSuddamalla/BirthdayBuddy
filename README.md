@@ -10,3 +10,5 @@ Currently, two official plugins are available:
 =======
 # BirthdayBuddy
 >>>>>>> 92487c6ec26ecfa4c39278e8cddb80c5bfee4c56
+>>>>>>>
+>>>>>>> https://birthdaybuddy1.netlify.app/
