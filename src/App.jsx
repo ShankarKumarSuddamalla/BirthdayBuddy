@@ -27,7 +27,7 @@ const App=()=>{
       });
     };
 
-    const intervalId=setInterval(checkBirthdays,86400000);
+    const intervalId=setInterval(checkBirthdays,10000);
     return ()=>clearInterval(intervalId);
   },[friends]);
 
@@ -35,11 +35,15 @@ const App=()=>{
   const addFriend=(friend)=>{
     setFriends([...friends,friend]);
   };
+  const deleteFriend = (index) => {
+    const updatedFriends = friends.filter((_, i) => i !== index);
+    setFriends(updatedFriends);
+  };
   return(
     <div className="app-container">
       <h1>Birthday Reminder</h1>
       <FriendForm addFriend={addFriend} />
-      <FriendList friends={friends} />
+      <FriendList friends={friends} deleteFriend={deleteFriend}/>
     </div>
   );
 };

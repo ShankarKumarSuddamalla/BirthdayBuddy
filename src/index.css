@@ -64,7 +64,20 @@ ul {
   list-style-type: none;
   padding: 0;
 }
+.friend-item button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
 
+.friend-item button:hover {
+  background: #ff4500;
+}
 li {
   background: #f9f9f9;
   padding: 10px;
