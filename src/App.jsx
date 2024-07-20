@@ -1,21 +1,48 @@
-import { useState } from "react";
-import data from './data'
-import List from "./components/List";
-const App = () => {
-  const [people,setPeople] = useState(data)
-  console.log(people)
-  return <main>
-    <section className="container">
-      <h3>{people.length} Birthdays Today</h3>
-      <List people={people} />
-      <button
-          type='button'
-          className='btn btn-block'
-          onClick={() => setPeople([])}
-        >
-          clear all
-        </button>
-    </section>
-  </main>
+import React from "react";
+import { useState,useEffect } from "react";
+import FriendList from "./components/FriendList";
+import FriendForm from "./components/FriendForm";
+import './index.css'
+const App=()=>{
+  const [friends,setFriends]=useState([]);
+
+  useEffect(()=>{
+    const storedFriends=JSON.parse(localStorage.getItem('friends'));
+    if(storedFriends){
+      setFriends(storedFriends);
+    }
+  },[]);
+
+  useEffect(()=>{
+    localStorage.setItem('friends',JSON.stringify(friends));
+  },[friends]);
+
+  useEffect(()=>{
+    const checkBirthdays=()=>{
+      const today=new Date().toISOString().slice(0,10);
+      friends.forEach(friend=>{
+        if(friend.birthday===today){
+          alert(`It's ${friend.name}'s birthday today!`);
+        }
+      });
+    };
+
+    const intervalId=setInterval(checkBirthdays,86400000);
+    return ()=>clearInterval(intervalId);
+  },[friends]);
+
+
+  const addFriend=(friend)=>{
+    setFriends([...friends,friend]);
+  };
+  return(
+    <div className="app-container">
+      <h1>Birthday Reminder</h1>
+      <FriendForm addFriend={addFriend} />
+      <FriendList friends={friends} />
+    </div>
+  );
 };
+
+
 export default App;
